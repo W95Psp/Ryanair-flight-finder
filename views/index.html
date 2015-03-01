@@ -1,0 +1,44 @@
+
+<html ng-app="app">
+  <head>
+    <title>Portail-Remote</title>
+    <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+    <script src="/static/angular.min.js"></script>
+    <script src="/static/jquery.js"></script>
+    <script src="/static/script.js"></script>
+    <script src="/static/moment.js"></script>
+    <script src="/static/pikaday.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/static/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/pikaday.css"/>
+  </head>
+  <body ng-controller="ctrl">
+    <div id="all">
+      <h1><span>Ryanair flight finder</span></h1>
+      <div id="content">
+        <h2>Return ticket</h2>
+        <table>
+          <tr>
+            <td>From :</td>
+            <td>
+              <input pikaday="from" format="DD-MM-YYYY"/>
+            </td>
+            <td rowspan="3" style="padding-left: 20px;">HEY DUDE</td>
+          </tr>
+          <tr>
+            <td>To :</td>
+            <td>
+              <input pikaday="to" format="DD-MM-YYYY"/>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="submit" value="Search"/>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

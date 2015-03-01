@@ -1,0 +1,71 @@
+html(ng-app='app')
+	head
+		title Portail-Remote
+		script(src='https://cdn.socket.io/socket.io-1.1.0.js')
+		script(src='/static/angular.min.js')
+		script(src='/static/jquery.js')
+		script(src='/static/script.js')
+		script(src='/static/moment.js')
+		script(src='/static/pikaday.js')
+		link(href='http://fonts.googleapis.com/css?family=Open+Sans:300', rel='stylesheet', type='text/css')
+		link(rel="stylesheet", type="text/css", href='/static/style.css')
+		link(rel="stylesheet", type="text/css", href='/static/pikaday.css')
+	body(ng-controller='ctrl')
+		div#all
+			h1
+				span Ryanair flight finder
+			div#content
+				h2 Return ticket
+				table
+					tr
+						td.a(colspan='2')
+							b From
+						td.f(colspan='2')
+							b To
+					tr
+						td Between :
+						td.a
+							input(pikaday='inFrom', format='DD-MM-YYYY')
+						td.f Between :
+						td
+							input(pikaday='outFrom', format='DD-MM-YYYY')
+						//- td(rowspan='3', style='padding-left: 20px;')
+						//- 	{{[from, to] | getDiff}}
+					tr
+						td And :
+						td.a
+							input(pikaday='inTo', format='DD-MM-YYYY')
+						td.f And :
+						td
+							input(pikaday='outTo', format='DD-MM-YYYY')
+					tr
+						td
+						td
+							input(type='submit', value='Search', ng-click='fetchInfo(inFrom, inTo, outFrom, outTo);')
+
+				h2 Results
+				div.result(ng-repeat='info in results')
+					h3
+						span.destination {{info.destination}}
+						span.description
+							span(ng-if='info.available') [{{info.minPriceAller}} + {{info.minPriceRetour}} = {{info.minTotal}}]
+							span(ng-if='!info.available') [Pas de retour :-(]
+					div
+						b Allers :
+					div.aller(ng-repeat='aller in info.data')
+						span De {{aller.from}} pour {{aller.price + ' ' + aller.priceIn}} le {{aller.date}}
+					div
+						b Retours :
+					div.retour(ng-repeat='retour in info.retours')
+						span De {{retour.airport.to}} pour {{retour.price + ' ' + retour.priceIn}} le {{retour.dateFrom}}
+
+				//- table
+				//- 	th
+				//- 		td Destination
+				//- 		td Price max
+				//- 		td Price min
+				//- 	tr(ng-repeat='(destination, info) in results')
+				//- 		td {{destination}}
+
+				//- 		td {{info.data[0].price}} {{info.data[0].priceIn}}
+				//- 		td {{info.data[info.data.length-1].price}} {{info.data[info.data.length-1].priceIn}}
